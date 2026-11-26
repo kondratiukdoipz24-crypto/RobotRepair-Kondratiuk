@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,12 +9,12 @@ public class RobotController : MonoBehaviour
 
     [Header("Здоров'я")]
     public int maxHealth = 5;
-    private int currentHealth = 0;
+    public int startingHealth = 1;
+    private int currentHealth;
+    private int healthGainedTotal = 0;
 
-    public int health
-    {
-        get { return currentHealth; }
-    }
+    public int health => currentHealth;
+    public int HealthGainedTotal => healthGainedTotal;
 
     public float timeInvincible = 2f;
     private bool isInvincible;
@@ -42,10 +41,11 @@ public class RobotController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        currentHealth = 0;
+        currentHealth = Mathf.Clamp(startingHealth, 0, maxHealth);
+        healthGainedTotal = 0;
 
         if (UIHandler.instance != null)
-            UIHandler.instance.SetHealthValue(0f);
+            UIHandler.instance.SetHealthValue((float)currentHealth / maxHealth);
 
         if (TalkAction != null)
             TalkAction.Enable();
@@ -60,27 +60,23 @@ public class RobotController : MonoBehaviour
 
         if (Keyboard.current != null)
         {
-            if (Keyboard.current.leftArrowKey.isPressed ||
-                Keyboard.current.aKey.isPressed)
+            if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.aKey.isPressed)
                 moveX = -1f;
 
-            if (Keyboard.current.rightArrowKey.isPressed ||
-                Keyboard.current.dKey.isPressed)
+            if (Keyboard.current.rightArrowKey.isPressed || Keyboard.current.dKey.isPressed)
                 moveX = 1f;
 
             if (moveX != 0f)
                 lastMoveDirection = new Vector2(moveX, 0f);
 
-            bool isGrounded = rb != null &&
-                Mathf.Abs(rb.linearVelocity.y) < 0.15f;
+            bool isGrounded = rb != null && Mathf.Abs(rb.linearVelocity.y) < 0.15f;
 
             if ((Keyboard.current.wKey.wasPressedThisFrame ||
                  Keyboard.current.upArrowKey.wasPressedThisFrame ||
                  Keyboard.current.leftShiftKey.wasPressedThisFrame)
                  && isGrounded)
             {
-                rb.linearVelocity =
-                    new Vector2(rb.linearVelocity.x, jumpForce);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             }
 
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -97,7 +93,6 @@ public class RobotController : MonoBehaviour
         if (isInvincible)
         {
             invincibleTimer -= Time.deltaTime;
-
             if (invincibleTimer <= 0f)
                 isInvincible = false;
         }
@@ -110,88 +105,94 @@ public class RobotController : MonoBehaviour
         if (rb == null || gameEnded)
             return;
 
-        rb.linearVelocity =
-            new Vector2(moveX * speed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(moveX * speed, rb.linearVelocity.y);
     }
 
-    
-
-public void ChangeHealth(int amount)
-{
-    if (gameEnded)
-        return;
-
-    if (amount < 0 && isInvincible)
-        return;
-
-    currentHealth = Mathf.Clamp(
-        currentHealth + amount,
-        0,
-        maxHealth
-    );
-
-    if (UIHandler.instance != null)
+    public void ChangeHealth(int amount)
     {
-        UIHandler.instance.SetHealthValue(
-            (float)currentHealth / maxHealth
-        );
+        if (gameEnded)
+            return;
+
+        if (amount < 0 && isInvincible)
+            return;
+
+        if (amount > 0)
+            healthGainedTotal += amount;
+
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+
+        if (UIHandler.instance != null)
+            UIHandler.instance.SetHealthValue((float)currentHealth / maxHealth);
+
+        if (amount < 0)
+        {
+            isInvincible = true;
+            invincibleTimer = timeInvincible;
+
+            if (animator != null)
+                animator.SetTrigger("Hit");
+        }
     }
 
-    if (amount < 0)
+   /* public void TriggerEndGame(bool isWin)
     {
-        isInvincible = true;
-        invincibleTimer = timeInvincible;
+        if (gameEnded)
+            return;
+
+        gameEnded = true;
+        moveX = 0f;
+
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
 
         if (animator != null)
-            animator.SetTrigger("Hit");
-    }
-}
+            animator.SetFloat("Speed", 0f);
 
-    
+        if (UIHandler.instance != null)
+        {
+            if (isWin)
+                UIHandler.instance.DisplayWinScreen();
+            else
+                UIHandler.instance.DisplayLoseScreen();
+        }
+
+        Time.timeScale = 0f;
+    }
+*/
 public void TriggerEndGame(bool isWin)
-{
-    if (gameEnded)
-        return;
-
-    gameEnded = true;
-    moveX = 0f;
-
-    if (rb != null)
-        rb.linearVelocity = Vector2.zero;
-
-    if (animator != null)
-        animator.SetFloat("Speed", 0f);
-
-    if (UIHandler.instance != null)
     {
-        if (isWin)
-            UIHandler.instance.DisplayWinScreen();
-        else
-            UIHandler.instance.DisplayLoseScreen();
+        if (gameEnded)
+            return;
+
+        gameEnded = true;
+        moveX = 0f;
+
+        if (rb != null)
+            rb.linearVelocity = Vector2.zero;
+
+        if (animator != null)
+            animator.SetFloat("Speed", 0f);
+
+        if (UIHandler.instance != null)
+        {
+            if (isWin)
+                UIHandler.instance.DisplayWinScreen();
+            else
+                UIHandler.instance.DisplayLoseScreen();
+        }
+
+        // Time.timeScale = 0f;  <-- Ось цей рядок блокував малювання екрану!
     }
-
-    Time.timeScale = 0f;
-}
-
-
     void Launch()
     {
         if (projectilePrefab == null || rb == null)
             return;
 
         Vector2 direction = lastMoveDirection;
+        Vector2 spawnPosition = rb.position + direction * projectileSpawnDistance;
 
-        Vector2 spawnPosition =
-            rb.position + direction * projectileSpawnDistance;
-
-        GameObject projectile = Instantiate(
-            projectilePrefab,
-            spawnPosition,
-            Quaternion.identity
-        );
-
-        Rigidbody2D projectileRb =
-            projectile.GetComponent<Rigidbody2D>();
+        GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
 
         if (projectileRb != null)
             projectileRb.linearVelocity = direction * projectileForce;
@@ -211,8 +212,7 @@ public void TriggerEndGame(bool isWin)
 
         if (hit.collider != null)
         {
-            NonPlayerCharacter npc =
-                hit.collider.GetComponent<NonPlayerCharacter>();
+            NonPlayerCharacter npc = hit.collider.GetComponent<NonPlayerCharacter>();
 
             if (npc != null)
             {
@@ -237,8 +237,7 @@ public void TriggerEndGame(bool isWin)
 
     void FindFriend()
     {
-        if (TalkAction != null &&
-            TalkAction.WasPressedThisFrame())
+        if (TalkAction != null && TalkAction.WasPressedThisFrame())
         {
             if (UIHandler.instance != null)
                 UIHandler.instance.DisplayDialogue();

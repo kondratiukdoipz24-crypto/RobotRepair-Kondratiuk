@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,8 +10,9 @@ public class UIHandler : MonoBehaviour
 
     private VisualElement healthBar;
     private VisualElement m_NonPlayerDialogue;
-    private VisualElement m_WinScreen;
-    private VisualElement m_LoseScreen;
+
+    private VisualElement m_WinContainer;
+    private VisualElement m_LoseContainer;
 
     private float currentHealthValue = 0f;
     private float m_TimerDisplay;
@@ -27,38 +27,22 @@ public class UIHandler : MonoBehaviour
         Time.timeScale = 1f;
 
         UIDocument uiDocument = GetComponent<UIDocument>();
-
-        if (uiDocument == null)
+        if (uiDocument != null)
         {
-            Debug.LogError("Не знайдено основний UIDocument!");
-            return;
+            VisualElement root = uiDocument.rootVisualElement;
+            VisualElement container = root.Q<VisualElement>("HealthBarContainer");
+            healthBar = root.Q<VisualElement>("HealthBar");
+
+            if (container != null && healthBar != null)
+            {
+                container.RegisterCallback<GeometryChangedEvent>(evt => UpdateHealthBar());
+                UpdateHealthBar();
+            }
+
+            m_NonPlayerDialogue = root.Q<VisualElement>("NPCDialogue");
+            if (m_NonPlayerDialogue != null)
+                m_NonPlayerDialogue.style.display = DisplayStyle.None;
         }
-
-        VisualElement root = uiDocument.rootVisualElement;
-
-        VisualElement container =
-            root.Q<VisualElement>("HealthBarContainer");
-
-        healthBar = root.Q<VisualElement>("HealthBar");
-
-        if (container != null && healthBar != null)
-        {
-            container.RegisterCallback<GeometryChangedEvent>(
-                evt => UpdateHealthBar()
-            );
-
-            UpdateHealthBar();
-        }
-        else
-        {
-            Debug.LogError("Не знайдено елементи здоров'я!");
-        }
-
-        m_NonPlayerDialogue =
-            root.Q<VisualElement>("NPCDialogue");
-
-        if (m_NonPlayerDialogue != null)
-            m_NonPlayerDialogue.style.display = DisplayStyle.None;
 
         m_TimerDisplay = -1f;
 
@@ -68,20 +52,23 @@ public class UIHandler : MonoBehaviour
             return;
         }
 
-        VisualElement endRoot =
-            endScreenDocument.rootVisualElement;
+        VisualElement endRoot = endScreenDocument.rootVisualElement;
 
-        m_LoseScreen =
-            endRoot.Q<VisualElement>("LoseScreenContainer");
+        m_LoseContainer = endRoot.Q<VisualElement>("LoseScreenContainer");
+        m_WinContainer = endRoot.Q<VisualElement>("WinScreenContainer");
 
-        m_WinScreen =
-            endRoot.Q<VisualElement>("WinScreenContainer");
+        // На старті ховаємо обидва екрани і ставимо прозорість 0
+        if (m_LoseContainer != null)
+        {
+            m_LoseContainer.style.display = DisplayStyle.None;
+            m_LoseContainer.style.opacity = 0f;
+        }
 
-        if (m_LoseScreen != null)
-            m_LoseScreen.style.display = DisplayStyle.None;
-
-        if (m_WinScreen != null)
-            m_WinScreen.style.display = DisplayStyle.None;
+        if (m_WinContainer != null)
+        {
+            m_WinContainer.style.display = DisplayStyle.None;
+            m_WinContainer.style.opacity = 0f;
+        }
     }
 
     void Update()
@@ -90,11 +77,9 @@ public class UIHandler : MonoBehaviour
         {
             m_TimerDisplay -= Time.deltaTime;
 
-            if (m_TimerDisplay <= 0 &&
-                m_NonPlayerDialogue != null)
+            if (m_TimerDisplay <= 0 && m_NonPlayerDialogue != null)
             {
-                m_NonPlayerDialogue.style.display =
-                    DisplayStyle.None;
+                m_NonPlayerDialogue.style.display = DisplayStyle.None;
             }
         }
     }
@@ -110,8 +95,7 @@ public class UIHandler : MonoBehaviour
         if (healthBar == null)
             return;
 
-        healthBar.style.width =
-            Length.Percent(currentHealthValue * 100f);
+        healthBar.style.width = Length.Percent(currentHealthValue * 100f);
     }
 
     public void DisplayDialogue()
@@ -119,33 +103,41 @@ public class UIHandler : MonoBehaviour
         if (m_NonPlayerDialogue == null)
             return;
 
-        m_NonPlayerDialogue.style.display =
-            DisplayStyle.Flex;
-
+        m_NonPlayerDialogue.style.display = DisplayStyle.Flex;
         m_TimerDisplay = displayTime;
     }
 
     public void DisplayWinScreen()
     {
-        if (m_WinScreen == null)
+        if (m_LoseContainer != null)
         {
-            Debug.LogError("Екран перемоги не знайдено!");
-            return;
+            m_LoseContainer.style.display = DisplayStyle.None;
+            m_LoseContainer.style.opacity = 0f;
         }
 
-        m_WinScreen.style.display = DisplayStyle.Flex;
+        if (m_WinContainer != null)
+        {
+            m_WinContainer.style.display = DisplayStyle.Flex;
+            m_WinContainer.style.opacity = 1f; // Робимо картинку перемоги видимою!
+        }
+
         Debug.Log("Перемога!");
     }
 
     public void DisplayLoseScreen()
     {
-        if (m_LoseScreen == null)
+        if (m_WinContainer != null)
         {
-            Debug.LogError("Екран поразки не знайдено!");
-            return;
+            m_WinContainer.style.display = DisplayStyle.None;
+            m_WinContainer.style.opacity = 0f;
         }
 
-        m_LoseScreen.style.display = DisplayStyle.Flex;
+        if (m_LoseContainer != null)
+        {
+            m_LoseContainer.style.display = DisplayStyle.Flex;
+            m_LoseContainer.style.opacity = 1f; // Робимо картинку поразки видимою!
+        }
+
         Debug.Log("Поразка!");
     }
 }

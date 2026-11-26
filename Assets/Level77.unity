@@ -421,10 +421,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: CollectibleHealth (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8290576142618603747, guid: 8398e3547a2fab54fa4ed9e5775c0d2a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6951821513522577472, guid: 8398e3547a2fab54fa4ed9e5775c0d2a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 722003460}
   m_SourcePrefab: {fileID: 100100000, guid: 8398e3547a2fab54fa4ed9e5775c0d2a, type: 3}
 --- !u!1 &421962590
 GameObject:
@@ -1132,6 +1141,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &722003455 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6951821513522577472, guid: 8398e3547a2fab54fa4ed9e5775c0d2a,
+    type: 3}
+  m_PrefabInstance: {fileID: 404076021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &722003460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722003455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36628bb81ac1aa64ea89f6bfbc01a91d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FoodPickup
+  healthAmount: 1
 --- !u!1 &896025660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,6 +1172,7 @@ GameObject:
   - component: {fileID: 896025663}
   - component: {fileID: 896025662}
   - component: {fileID: 896025661}
+  - component: {fileID: 896025665}
   m_Layer: 0
   m_Name: Decoration_14
   m_TagString: Untagged
@@ -1158,7 +1187,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896025660}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9744dadf3d8d7141bd35aebcac333fb, type: 3}
   m_Name: 
@@ -1283,6 +1312,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &896025665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896025660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8789f78ceba4d42b2f3428c6109dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HouseWin
+  requiredHealthGained: 3
 --- !u!1 &1016522219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,6 +1337,7 @@ GameObject:
   - component: {fileID: 1016522222}
   - component: {fileID: 1016522221}
   - component: {fileID: 1016522220}
+  - component: {fileID: 1016522224}
   m_Layer: 0
   m_Name: CollectibleHealth
   m_TagString: Untagged
@@ -1309,7 +1352,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016522219}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9719ae83717e254a9671325a9e7280e, type: 3}
   m_Name: 
@@ -1436,6 +1479,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1016522224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016522219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36628bb81ac1aa64ea89f6bfbc01a91d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FoodPickup
+  healthAmount: 1
 --- !u!1 &1181715134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,6 +1504,7 @@ GameObject:
   - component: {fileID: 1181715135}
   - component: {fileID: 1181715138}
   - component: {fileID: 1181715137}
+  - component: {fileID: 1181715139}
   m_Layer: 0
   m_Name: CollectibleHealth (1)
   m_TagString: Untagged
@@ -1536,7 +1593,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181715134}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9719ae83717e254a9671325a9e7280e, type: 3}
   m_Name: 
@@ -1589,6 +1646,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &1181715139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181715134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36628bb81ac1aa64ea89f6bfbc01a91d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FoodPickup
+  healthAmount: 1
 --- !u!1 &1402084142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,8 +1749,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997e30336c710084d86c19fcc1d18729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  player: {fileID: 1774375008}
-  uiHandler: {fileID: 1842670405}
 --- !u!1 &1700654458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,16 +2305,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -5, y: -4, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 9
-      m_TileSpriteIndex: 9
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 5, y: -4, z: 0}
     second:
       serializedVersion: 2
@@ -2317,16 +2375,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -6, y: -3, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 9
-      m_TileSpriteIndex: 9
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 5, y: -3, z: 0}
     second:
       serializedVersion: 2
@@ -2382,16 +2430,6 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 22
       m_TileSpriteIndex: 22
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: -7, y: -2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 17
-      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2457,21 +2495,21 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -8, y: -1, z: 0}
+  - first: {x: -5, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 22
-      m_TileSpriteIndex: 22
+      m_TileIndex: 16
+      m_TileSpriteIndex: 16
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -7, y: -1, z: 0}
+  - first: {x: -4, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 17
-      m_TileSpriteIndex: 17
+      m_TileIndex: 16
+      m_TileSpriteIndex: 16
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2617,26 +2655,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: -7, y: 0, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 21
-      m_TileSpriteIndex: 21
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: -6, y: 0, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 9
-      m_TileSpriteIndex: 9
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 2, y: 0, z: 0}
     second:
       serializedVersion: 2
@@ -2732,26 +2750,6 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 22
       m_TileSpriteIndex: 22
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: -6, y: 1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 17
-      m_TileSpriteIndex: 17
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: -5, y: 1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 17
-      m_TileSpriteIndex: 17
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3237,7 +3235,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 9
+  - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 0330238b7b7914b5580a9f1846bf6492, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -3251,9 +3249,9 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 3e4b90df6a096754d9e9c84be9ac871a, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: c62ef67e932328f4588cf2d9cf7c3ecf, type: 2}
-  - m_RefCount: 19
+  - m_RefCount: 21
     m_Data: {fileID: 11400000, guid: f4770f5c4385340aeaca21b6a114154b, type: 2}
-  - m_RefCount: 44
+  - m_RefCount: 40
     m_Data: {fileID: 11400000, guid: 2a5c777b887404794a91a696fb03aa06, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: fbfc69c8f3fc24931866f4a6933f1607, type: 2}
@@ -3261,9 +3259,9 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: bff8f2acc60bc43209dca298e91d62d4, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 0e238891e718f466ca3749af44111a6b, type: 2}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 1bc42a3394c63454bb32dbf4f02e4ad4, type: 2}
-  - m_RefCount: 41
+  - m_RefCount: 40
     m_Data: {fileID: 11400000, guid: 1efbfadded804443794fa81d94040a28, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -3284,7 +3282,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 9
+  - m_RefCount: 6
     m_Data: {fileID: 259183844, guid: b86be42e5f8c34a3b85c36ff1fe3f209, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -3298,9 +3296,9 @@ Tilemap:
     m_Data: {fileID: 21300010, guid: 04061ca7669e6d54fb400bbe85f243a8, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300016, guid: 04061ca7669e6d54fb400bbe85f243a8, type: 3}
-  - m_RefCount: 19
+  - m_RefCount: 21
     m_Data: {fileID: -208470057, guid: b86be42e5f8c34a3b85c36ff1fe3f209, type: 3}
-  - m_RefCount: 44
+  - m_RefCount: 40
     m_Data: {fileID: -1993220372, guid: b86be42e5f8c34a3b85c36ff1fe3f209, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1528035523, guid: b86be42e5f8c34a3b85c36ff1fe3f209, type: 3}
@@ -3308,13 +3306,13 @@ Tilemap:
     m_Data: {fileID: 853545719, guid: b86be42e5f8c34a3b85c36ff1fe3f209, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1031093102, guid: b86be42e5f8c34a3b85c36ff1fe3f209, type: 3}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 75918639, guid: b86be42e5f8c34a3b85c36ff1fe3f209, type: 3}
-  - m_RefCount: 41
+  - m_RefCount: 40
     m_Data: {fileID: -8782233188917232318, guid: b86be42e5f8c34a3b85c36ff1fe3f209,
       type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 134
+  - m_RefCount: 127
     m_Data:
       e00: 1
       e01: 0
@@ -3333,7 +3331,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 134
+  - m_RefCount: 127
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -3555,9 +3553,9 @@ GameObject:
   - component: {fileID: 1774375003}
   - component: {fileID: 1774375006}
   - component: {fileID: 1774375007}
-  - component: {fileID: 1774375008}
   - component: {fileID: 1774375009}
   - component: {fileID: 1774375010}
+  - component: {fileID: 1774375011}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -3717,45 +3715,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.051612716, y: 0.6801515}
   m_Size: {x: 1.0307518, y: 1.4601976}
   m_Direction: 0
---- !u!114 &1774375008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774375002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d18c5df2de507d1479db6e139d08043b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RobotController
-  speed: 3
-  jumpForce: 12
-  maxHealth: 5
-  timeInvincible: 2
-  projectilePrefab: {fileID: 8580825602152614467, guid: 56a8604d28190de45a0f0177e8f2671e,
-    type: 3}
-  projectileForce: 8
-  projectileSpawnDistance: 0.8
-  TalkAction:
-    m_Name: Talk
-    m_Type: 1
-    m_ExpectedControlType: Button
-    m_Id: b8ccaed2-1ba0-495d-849f-98412764e7ae
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: d7200cca-582f-4e54-bb9e-c4c09222ab43
-      m_Path: <Keyboard>/x
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Talk
-      m_Flags: 0
-    m_Flags: 0
-    m_Priority: 0
-  endScreen: {fileID: 292538917}
 --- !u!114 &1774375009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3790,6 +3749,36 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1774375011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774375002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18c5df2de507d1479db6e139d08043b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RobotController
+  speed: 4
+  jumpForce: 11
+  maxHealth: 5
+  startingHealth: 1
+  timeInvincible: 2
+  projectilePrefab: {fileID: 0}
+  projectileForce: 10
+  projectileSpawnDistance: 0.8
+  TalkAction:
+    m_Name: Talk
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 12b9020b-d5c6-47ff-8850-e91a4131f119
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+    m_Priority: 0
 --- !u!1 &1842670402
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,7 +3790,6 @@ GameObject:
   - component: {fileID: 1842670404}
   - component: {fileID: 1842670403}
   - component: {fileID: 1842670405}
-  - component: {fileID: 1842670406}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -3849,20 +3837,6 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1842670405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1842670402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9616b9e24ce816d42aca6ecf68672ef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIHandler
-  displayTime: 4
-  endScreenDocument: {fileID: 292538918}
---- !u!114 &1842670406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3979,7 +3953,7 @@ PrefabInstance:
     - target: {fileID: 1092960126092329386, guid: 6f3e3cf5070c7e54ba3456f8d24a0937,
         type: 3}
       propertyPath: riseSpeed
-      value: 0.3
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5646221807452689843, guid: 6f3e3cf5070c7e54ba3456f8d24a0937,
         type: 3}
